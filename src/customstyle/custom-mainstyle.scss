@@ -1,0 +1,261 @@
+@import './app-color-tokens';
+
+/* Global design tokens: spacing, typography (colors: customstyle/app-color-tokens.scss) */
+@layer base {
+  :root {
+    /* Typography scale */
+
+    /* Use `font-family: Roboto, sans-serif !important` globally below; token kept for reference only */
+    /* stylelint-disable-next-line value-keyword-case -- Roboto is the required brand font name */
+    --font-family-sans: Roboto, sans-serif;
+    --font-size-body: 18px;
+    --line-height-body: 1.75;
+    --text-xs: .75rem;
+    --text-sm: .875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
+    --space-1: .25rem;
+    --space-2: .5rem;
+    --space-3: .75rem;
+    --space-4: 1rem;
+    --space-5: 1.25rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-10: 2.5rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --header-height: 7rem;
+    --header-login-min-height: 2.75rem;
+    --header-container-max-width: 87.5rem;
+    --header-z-backdrop: 1040;
+    --header-z-mobile-panel: 1050;
+    --header-z-bar: 1060;
+    --radius: .75rem;
+    --radius-xl: .75rem;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(231deg 54% 36%) 0%, hsl(231deg 54% 46%) 100%);
+    --gradient-accent: #2A3B8F;
+    --gradient-highlight: linear-gradient(135deg, hsl(45deg 100% 58%) 0%, hsl(45deg 100% 65%) 100%);
+    --gradient-teal: linear-gradient(135deg, hsl(175deg 70% 40%) 0%, hsl(180deg 60% 50%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px -2px hsl(231deg 54% 36% / .1);
+    --shadow-md: 0 8px 24px -8px hsl(231deg 54% 36% / .15);
+    --shadow-lg: 0 16px 48px -12px hsl(231deg 54% 36% / .2);
+    --shadow-accent: 0 8px 24px -8px hsl(231deg 54% 36% / .3);
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--searn-color-border);
+  }
+
+  body {
+    background-color: var(--searn-color-page-background);
+    color: var(--searn-color-page-foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    margin: 0;
+  }
+
+  h1 {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    line-height: 1.2;
+
+    @media (width >= 768px) {
+      font-size: var(--text-5xl);
+    }
+
+    @media (width >= 1024px) {
+      font-size: var(--text-6xl);
+    }
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    line-height: 1.25;
+
+    @media (width >= 768px) {
+      font-size: var(--text-4xl);
+    }
+  }
+
+  h3 {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    line-height: 1.3;
+
+    @media (width >= 768px) {
+      font-size: var(--text-3xl);
+    }
+  }
+
+  h4 {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    line-height: 1.35;
+
+    @media (width >= 768px) {
+      font-size: var(--text-2xl);
+    }
+  }
+
+  h5,
+  h6 {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    line-height: 1.4;
+
+    @media (width >= 768px) {
+      font-size: var(--text-xl);
+    }
+  }
+
+  p {
+    font-size: var(--text-base);
+    line-height: var(--line-height-body);
+
+    @media (width >= 768px) {
+      font-size: var(--text-lg);
+    }
+  }
+
+  /* Do not change: Roboto must win over Paragon/third-party font rules */
+  html,
+  body,
+  #root,
+  #root * {
+    /* stylelint-disable-next-line value-keyword-case -- Roboto is the required brand font name */
+    font-family: Roboto, sans-serif !important;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    /* stylelint-disable-next-line value-keyword-case -- Roboto is the required brand font name */
+    font-family: Roboto, sans-serif !important;
+  }
+
+  .font-body {
+    /* stylelint-disable-next-line value-keyword-case -- Roboto is the required brand font name */
+    font-family: Roboto, sans-serif !important;
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent) !important;
+    background-color: var(--gradient-accent) !important;
+    border-color: var(--gradient-accent) !important;
+    color: var(--searn-color-on-primary) !important;
+
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled),
+    &:active:not(:disabled) {
+      background: var(--searn-color-primary-hover) !important;
+      background-color: var(--searn-color-primary-hover) !important;
+      border-color: var(--searn-color-primary-hover) !important;
+      color: var(--searn-color-on-primary) !important;
+    }
+
+    &:disabled {
+      background: var(--gradient-accent) !important;
+      background-color: var(--gradient-accent) !important;
+      border-color: var(--gradient-accent) !important;
+      color: var(--searn-color-on-primary) !important;
+    }
+  }
+
+  .gradient-highlight {
+    background: var(--gradient-highlight);
+  }
+
+  .gradient-teal {
+    background: var(--gradient-teal);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-card-hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* stylelint-disable property-no-vendor-prefix -- text gradient clipping needs legacy WebKit prefixes */
+  .text-gradient-primary {
+    background: var(--gradient-hero);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-accent {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* stylelint-enable property-no-vendor-prefix */
+
+  .border-thick {
+    border-color: var(--searn-color-highlight);
+    border-width: 3px;
+  }
+
+  @keyframes searn-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-1rem);
+    }
+  }
+
+  .animate-float {
+    animation: searn-float 6s ease-in-out infinite;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}

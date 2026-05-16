@@ -1,0 +1,77 @@
+/*
+ * SEARN public MFE — centralized app colors (resolved #hex / rgb()).
+ * Use these in app SCSS instead of hsl(var(--primary))-style composition so colors
+ * stay valid with Open edX Paragon + Bootstrap (which may define their own --primary / --bs-*).
+ * Paragon component colors still come from @edx/brand; align brand $primary with --searn-color-primary if desired.
+ */
+
+:root {
+  /* Brand */
+  --searn-color-primary: #2A3B8F;
+  --searn-color-primary-hover: #233475;
+  --searn-color-on-primary: #FFFFFF;
+
+  /* Page */
+  --searn-color-page-background: #FFFFFF;
+  --searn-color-page-foreground: #2A3B8F;
+
+  /* Surfaces & chrome */
+  --searn-color-card-background: #FFFFFF;
+  --searn-color-border: #E2E8F0;
+  --searn-color-secondary-surface: #F1F5F9;
+  --searn-color-secondary-foreground: #2A3B8F;
+
+  /* Text */
+  --searn-color-muted: #5C6B9C;
+
+  /* Hero / on-gradient text */
+  --searn-color-hero-text: #FFFFFF;
+
+  /* Accent (yellow highlight per brand) */
+  --searn-color-highlight: #FFCC29;
+  --searn-color-highlight-hover: rgb(255 204 41 / .9);
+  --searn-color-on-highlight: #2A3B8F;
+  --searn-color-hero-overlay: rgb(42 59 143 / .75);
+  --searn-color-badge-tint: rgb(42 59 143 / .1);
+  --searn-color-badge-tint-strong: rgb(42 59 143 / .05);
+  --searn-color-badge-tint-hover: rgb(42 59 143 / .1);
+  --searn-color-hero-text-muted: #ffffffcc;
+
+  /* Success (confirmation states) */
+  --searn-color-success-surface: #DCFCE7;
+  --searn-color-success: #16A34A;
+  --searn-color-control-frost: rgb(255 255 255 / .2);
+  --searn-color-control-frost-hover: rgb(255 255 255 / .4);
+  --searn-color-hero-badge-background: rgb(255 255 255 / .1);
+  --searn-color-hero-badge-border: rgb(255 255 255 / .2);
+  --searn-color-orb-accent: rgb(42 59 143 / .2);
+  --searn-color-orb-highlight: rgb(255 204 41 / .3);
+  --searn-color-section-muted: rgb(241 245 249);
+  --searn-color-dot-inactive: rgb(255 255 255 / .5);
+
+  /* Focus ring (primary-tinted) */
+  --searn-color-focus-ring: rgb(42 59 143 / .45);
+
+  /* Footer (primary brand bar) */
+  --searn-color-footer-background: #2A3B8F;
+  --searn-color-footer-text: #FFFFFF;
+  --searn-color-footer-text-muted: rgb(255 255 255 / .7);
+  --searn-color-footer-text-subtle: rgb(255 255 255 / .6);
+  --searn-color-footer-border: rgb(255 255 255 / .2);
+}
+
+.dark {
+  --searn-color-primary: #5B6FC9;
+  --searn-color-primary-hover: #4A5EB5;
+  --searn-color-on-primary: #FFFFFF;
+  --searn-color-page-background: #0C101B;
+  --searn-color-page-foreground: #F8FAFC;
+  --searn-color-card-background: #131A2B;
+  --searn-color-border: #2A3347;
+  --searn-color-secondary-surface: #1A2235;
+  --searn-color-secondary-foreground: #E8ECF4;
+  --searn-color-muted: #9AA4BF;
+  --searn-color-hero-text: #FFFFFF;
+  --searn-color-highlight: #FFCC29;
+  --searn-color-focus-ring: rgb(91 111 201 / .5);
+}

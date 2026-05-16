@@ -1,6 +1,6 @@
 import React from "react";
 import {PLUGIN_OPERATIONS, DIRECT_PLUGIN} from "@openedx/frontend-plugin-framework";
-import CustomLoginPage from "./src/custom-login/CustomLoginPage";
+import CustomMainApp from "./src/CustomMainApp";
 
 const getPluginSlots = () => {
     return {
@@ -13,7 +13,7 @@ const getPluginSlots = () => {
                         type: DIRECT_PLUGIN,
                         priority: 1,
                         RenderWidget: ()=>(
-                            <CustomLoginPage />
+                            <CustomMainApp />
                         )
                     }
                 }

@@ -1,0 +1,151 @@
+.custom-login {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--searn-color-page-background);
+
+  &__grid {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    align-items: stretch;
+  }
+
+  &__form-column {
+    box-sizing: border-box;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    padding: var(--space-12) var(--space-8);
+  }
+
+  &__form-inner {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
+  }
+
+  @media (width >= 1024px) {
+    &__grid {
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    &__form-column {
+      flex: 1 1 50%;
+      min-height: 100vh;
+      padding: var(--space-12) var(--space-16);
+    }
+  }
+
+  /* Brand text palette — override Paragon/Bootstrap black/gray defaults */
+  .login-form,
+  .custom-otp-page,
+  .custom-forgot-password,
+  .custom-reset-password,
+  .otp-input {
+    color: var(--searn-color-page-foreground);
+
+    label,
+    .form-label,
+    legend {
+      color: var(--searn-color-page-foreground) !important;
+    }
+
+    input:not(.otp-input__hidden),
+    textarea,
+    select,
+    .form-control {
+      color: var(--searn-color-page-foreground) !important;
+      -webkit-text-fill-color: var(--searn-color-page-foreground) !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      outline: none !important;
+
+      &::placeholder,
+      &::-webkit-input-placeholder,
+      &::-moz-placeholder {
+        color: var(--searn-color-muted) !important;
+        -webkit-text-fill-color: var(--searn-color-muted) !important;
+        opacity: 1 !important;
+      }
+
+      &:focus,
+      &:focus-visible,
+      &:active {
+        border: 0 !important;
+        box-shadow: none !important;
+        outline: none !important;
+      }
+
+      &:disabled {
+        color: var(--searn-color-muted) !important;
+        -webkit-text-fill-color: var(--searn-color-muted) !important;
+      }
+    }
+
+    .pgn__form-control-decorator-group {
+      border: 1px solid var(--searn-color-border);
+      border-radius: var(--radius);
+      background-color: var(--searn-color-page-background);
+      transition:
+        border-color 0.15s ease,
+        border-width 0.15s ease,
+        box-shadow 0.15s ease;
+
+      &:focus-within {
+        border: 2px solid var(--searn-color-primary) !important;
+        box-shadow: 0 0 0 2px var(--searn-color-focus-ring) !important;
+      }
+
+      &.is-invalid,
+      .is-invalid > & {
+        border-color: var(--searn-color-primary) !important;
+      }
+    }
+
+    input:not(.otp-input__hidden):-webkit-autofill,
+    input:not(.otp-input__hidden):-webkit-autofill:hover,
+    input:not(.otp-input__hidden):-webkit-autofill:focus {
+      -webkit-text-fill-color: var(--searn-color-page-foreground) !important;
+      box-shadow: 0 0 0 1000px var(--searn-color-page-background) inset !important;
+    }
+
+    .otp-input__hidden {
+      color: transparent !important;
+      -webkit-text-fill-color: transparent !important;
+      opacity: 0;
+    }
+
+    .invalid-feedback,
+    .valid-feedback,
+    .form-text,
+    [class*='feedback'] {
+      color: var(--searn-color-primary) !important;
+    }
+
+    .alert,
+    [class*='alert'] {
+      color: var(--searn-color-page-foreground) !important;
+
+      p,
+      span,
+      div {
+        color: inherit !important;
+      }
+    }
+
+    .spinner-border {
+      color: var(--searn-color-on-primary) !important;
+      border-color: currentcolor !important;
+      border-right-color: transparent !important;
+    }
+  }
+}

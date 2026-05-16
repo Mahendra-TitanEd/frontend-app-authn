@@ -7,7 +7,7 @@ hooks.Filters.ENV_PATCHES.add_item(
 // Runtime plugin configuration injected by Tutor (auth / login & registration overrides)
 
 const { PLUGIN_OPERATIONS, DIRECT_PLUGIN } = await import('@openedx/frontend-plugin-framework');
-const { default: CustomLoginPage }       = await import('./src/custom-login/CustomLoginPage');
+const { default: CustomMainApp }         = await import('./src/CustomMainApp');
 
 {% raw %}
 const getPluginSlots = () => {
@@ -20,7 +20,7 @@ const getPluginSlots = () => {
             id: 'authn_main_app_plugin_slot',
             type: DIRECT_PLUGIN,
             priority: 1,
-            RenderWidget: () => <CustomLoginPage />,
+            RenderWidget: () => <CustomMainApp />,
           },
         },
       ],
