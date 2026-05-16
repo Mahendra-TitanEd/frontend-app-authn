@@ -1,0 +1,28 @@
+.back-to-login-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-8);
+  width: 100%;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--searn-color-primary) !important;
+  text-decoration: none !important;
+
+  &:hover:not(.back-to-login-link--disabled) {
+    text-decoration: underline !important;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    line-height: 1;
+  }
+}
