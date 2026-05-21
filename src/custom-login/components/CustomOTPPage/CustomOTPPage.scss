@@ -1,0 +1,183 @@
+.custom-otp-page {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 28rem;
+
+  &__inner {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  &__logo-link {
+    display: inline-block;
+    margin-bottom: var(--space-8);
+    text-decoration: none;
+  }
+
+  &__logo {
+    display: block;
+    width: auto;
+    height: 7rem;
+    max-width: 100%;
+  }
+
+  &__title {
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--searn-color-primary);
+  }
+
+  &__subtitle {
+    margin: 0 0 var(--space-8);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--searn-color-secondary-foreground);
+  }
+
+  &__email {
+    font-weight: 600;
+    color: var(--searn-color-page-foreground);
+  }
+
+  &__alert {
+    margin-bottom: var(--space-6);
+    color: var(--searn-color-page-foreground) !important;
+
+    * {
+      color: inherit !important;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  &__otp-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  &__field-error {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    font-size: var(--text-sm);
+    color: var(--searn-color-primary) !important;
+  }
+
+  &__submit {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 100%;
+    min-height: 3.5rem;
+    padding: var(--space-4) var(--space-8) !important;
+    border: 0 !important;
+    border-radius: var(--radius-xl) !important;
+    background: var(--gradient-accent) !important;
+    background-color: var(--gradient-accent) !important;
+    border-color: var(--gradient-accent) !important;
+    color: var(--searn-color-on-primary) !important;
+    font-size: var(--text-base) !important;
+    font-weight: 600 !important;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled),
+    &:active:not(:disabled) {
+      background: var(--searn-color-primary-hover) !important;
+      background-color: var(--searn-color-primary-hover) !important;
+      border-color: var(--searn-color-primary-hover) !important;
+      color: var(--searn-color-on-primary) !important;
+      transform: scale(1.02);
+      box-shadow: var(--shadow-accent);
+    }
+
+    &:disabled {
+      background: var(--gradient-accent) !important;
+      background-color: var(--gradient-accent) !important;
+      border-color: var(--gradient-accent) !important;
+      color: var(--searn-color-on-primary) !important;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  &__submit-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    font-size: var(--text-base);
+    line-height: 1.5;
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--searn-color-secondary-foreground);
+    cursor: pointer;
+    font-size: inherit;
+    line-height: inherit;
+
+    &:hover:not(:disabled) {
+      color: var(--searn-color-page-foreground);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__back-icon {
+    flex-shrink: 0;
+    width: 0.875rem;
+    height: 0.875rem;
+    line-height: 1;
+  }
+
+  &__resend {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--searn-color-primary);
+    cursor: pointer;
+    font-size: inherit;
+    font-weight: 600;
+    line-height: inherit;
+
+    &:hover:not(:disabled) {
+      text-decoration: underline;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__countdown {
+    margin: calc(-1 * var(--space-2)) 0 0;
+    text-align: right;
+    font-size: var(--text-sm);
+    color: var(--searn-color-secondary-foreground);
+  }
+}
