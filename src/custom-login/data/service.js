@@ -3,6 +3,11 @@ import { getHttpClient } from '@edx/frontend-platform/auth';
 
 const getCustomLoginBaseUrl = () => `${getConfig().LMS_BASE_URL}/api/v1/custom-login/auth`;
 
+const toApiResult = (response) => ({
+  status: response?.status ?? 200,
+  data: response?.data ?? response,
+});
+
 export async function startCustomLoginAuth({ identifier, password }) {
   const requestConfig = {
     headers: { 'Content-Type': 'application/json' },
@@ -10,13 +15,13 @@ export async function startCustomLoginAuth({ identifier, password }) {
     withCredentials: true,
   };
 
-  const { data } = await getHttpClient().post(
+  const response = await getHttpClient().post(
     `${getCustomLoginBaseUrl()}/start/`,
     { identifier, password },
     requestConfig,
   );
 
-  return data;
+  return toApiResult(response);
 }
 
 export async function verifyCustomLoginOtp({ challengeId, otp }) {
@@ -26,11 +31,11 @@ export async function verifyCustomLoginOtp({ challengeId, otp }) {
     withCredentials: true,
   };
 
-  const { data } = await getHttpClient().post(
+  const response = await getHttpClient().post(
     `${getCustomLoginBaseUrl()}/verify-otp/`,
     { challenge_id: challengeId, otp },
     requestConfig,
   );
 
-  return data;
+  return toApiResult(response);
 }
