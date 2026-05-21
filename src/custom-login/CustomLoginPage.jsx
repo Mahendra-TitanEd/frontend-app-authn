@@ -1,19 +1,29 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { getConfig } from '@edx/frontend-platform';
+import { camelCaseObject, getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import { Zendesk } from '../common-components';
-import { showApiToast, useToast } from '../custom-toast';
+import {
+  RedirectLogistration,
+  Zendesk,
+} from '../common-components';
 import CustomOTPPage from './components/CustomOTPPage/CustomOTPPage';
 import LoginForm from './components/LoginForm/LoginForm';
 import RightInfoPanel from './components/RightInfoPanel/RightInfoPanel';
 import pageMessages from './CustomLoginPage.messages';
 import { startCustomLoginAuth, verifyCustomLoginOtp } from './data/service';
 import './CustomLogin.scss';
-import postAuthRedirect from './utils/postAuthRedirect';
+import {
+  parseStartAuthResponse,
+  parseVerifyAuthResponse,
+  pickApiMessage,
+} from './utils/parseCustomLoginResponse';
+import resolvePostAuthRedirect from './utils/resolvePostAuthRedirect';
+import { getThirdPartyAuthContext } from '../common-components/data/service';
+import { showApiToast, useToast } from '../custom-toast';
+import { getAllPossibleQueryParams, getTpaHint } from '../data/utils';
 
 const CustomLoginPage = (props) => {
   const { formatMessage } = useIntl();
@@ -32,6 +42,12 @@ const CustomLoginPage = (props) => {
   const [otpPending, setOtpPending] = useState(false);
   const [resendPending, setResendPending] = useState(false);
   const [resendCountdown, setResendCountdown] = useState(0);
+  const [pipelineFinishAuthUrl, setPipelineFinishAuthUrl] = useState(null);
+  const [loginRedirect, setLoginRedirect] = useState({
+    success: false,
+    redirectUrl: '',
+    finishAuthUrl: null,
+  });
 
   const toastFallbacks = useCallback((descriptionId, titleKey = 'LOGIN.TOAST_INFO_TITLE') => ({
     titleId: pageMessages[titleKey],
@@ -70,12 +86,29 @@ const CustomLoginPage = (props) => {
     return () => window.clearInterval(timer);
   }, [resendCountdown]);
 
+  useEffect(() => {
+    const payload = { ...getAllPossibleQueryParams() };
+    const tpaHint = getTpaHint();
+    if (tpaHint) {
+      payload.tpa_hint = tpaHint;
+    }
+
+    getThirdPartyAuthContext(payload)
+      .then(({ thirdPartyAuthContext }) => {
+        const ctx = camelCaseObject(thirdPartyAuthContext || {});
+        setPipelineFinishAuthUrl(ctx.finishAuthUrl || null);
+      })
+      .catch(() => {
+        setPipelineFinishAuthUrl(null);
+      });
+  }, []);
+
   const beginResendCooldown = useCallback(() => setResendCountdown(30), []);
 
   const getApiErrorMessage = useCallback((err, fallbackMessageId) => {
-    const apiMessageFromError = err?.response?.data?.detail || err?.response?.data?.message;
-    if (typeof apiMessageFromError === 'string' && apiMessageFromError.trim()) {
-      return apiMessageFromError.trim();
+    const apiMessageFromError = pickApiMessage(err?.response?.data, err?.response?.status);
+    if (apiMessageFromError) {
+      return apiMessageFromError;
     }
     return formatMessage(pageMessages[fallbackMessageId]);
   }, [formatMessage]);
@@ -112,16 +145,21 @@ const CustomLoginPage = (props) => {
     loadingSetter(true);
     clearFieldApiErrors();
     try {
-      const response = await startCustomLoginAuth({
+      const { status, data } = await startCustomLoginAuth({
         identifier: email.trim(),
         password,
       });
-      const responseData = response?.data || response;
-      const isStartSuccess = responseData?.success === true && !!responseData?.challenge_id;
-      if (!isStartSuccess) {
-        const apiFailureMessage = responseData?.detail || responseData?.message;
+      const {
+        body: responseData,
+        challengeId: nextChallengeId,
+        shouldShowOtp,
+        apiFailureMessage,
+        errorCode,
+      } = parseStartAuthResponse({ status, data });
+
+      if (!shouldShowOtp) {
         const messageUsedInField = setFieldErrorFromApi(
-          responseData?.error_code,
+          errorCode,
           apiFailureMessage,
           'credentials',
         );
@@ -141,7 +179,7 @@ const CustomLoginPage = (props) => {
         return;
       }
 
-      setChallengeId(responseData?.challenge_id || '');
+      setChallengeId(nextChallengeId);
       setShowOtp(true);
       setOtp('');
       beginResendCooldown();
@@ -191,13 +229,19 @@ const CustomLoginPage = (props) => {
     setOtpPending(true);
     setOtpApiError('');
     try {
-      const response = await verifyCustomLoginOtp({
+      const { status, data } = await verifyCustomLoginOtp({
         challengeId,
         otp: otpValue,
       });
-      const responseData = response?.data || response;
+      const {
+        body: responseData,
+        isSuccess,
+        apiFailureMessage: verifyFailureMessage,
+        errorCode,
+        finishAuthUrl: apiFinishAuthUrl,
+      } = parseVerifyAuthResponse({ status, data });
 
-      if (responseData?.success === true) {
+      if (isSuccess) {
         notifyApi({
           responseOrError: responseData,
           descriptionId: pageMessages['LOGIN.OTP_VERIFIED_FALLBACK'],
@@ -211,18 +255,15 @@ const CustomLoginPage = (props) => {
           loginSuccessHandler(responseData);
         }
 
-        window.setTimeout(() => {
-          postAuthRedirect({
-            redirectUrl: `${getConfig().LMS_BASE_URL}/dashboard`,
-            success: true,
-            finishAuthUrl: null,
-          });
-        }, 1200);
+        const redirectTarget = resolvePostAuthRedirect({
+          responseBody: responseData,
+          finishAuthUrl: apiFinishAuthUrl || pipelineFinishAuthUrl,
+        });
+
+        setLoginRedirect(redirectTarget);
         return;
       }
 
-      const verifyFailureMessage = responseData?.detail || responseData?.message;
-      const errorCode = responseData?.error_code;
       setFieldErrorFromApi(errorCode, verifyFailureMessage, 'otp');
       notifyApi({
         responseOrError: responseData,
@@ -251,6 +292,7 @@ const CustomLoginPage = (props) => {
     loginSuccessHandler,
     notifyApi,
     onLoginSuccess,
+    pipelineFinishAuthUrl,
     setFieldErrorFromApi,
   ]);
 
@@ -282,6 +324,11 @@ const CustomLoginPage = (props) => {
         <link rel="shortcut icon" href={getConfig().FAVICON_URL} type="image/x-icon" />
       </Helmet>
       {getConfig().ZENDESK_KEY ? <Zendesk /> : null}
+      <RedirectLogistration
+        success={loginRedirect.success}
+        redirectUrl={loginRedirect.redirectUrl}
+        finishAuthUrl={loginRedirect.finishAuthUrl}
+      />
       <div className="custom-login">
         <div className="custom-login__grid">
           <div className="custom-login__form-column">

@@ -83,7 +83,7 @@ const LoginForm = ({
     setPasswordError(validateLoginFormPassword(password, formatMessage));
   }, [password, passwordApiError, formatMessage]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const eErr = emailApiError || validateLoginFormEmail(email, formatMessage);
     const pErr = passwordApiError || validateLoginFormPassword(password, formatMessage);
@@ -92,7 +92,7 @@ const LoginForm = ({
     if (eErr || pErr) {
       return;
     }
-    onSubmit();
+    await onSubmit();
   };
 
   const handleWhoSsoClick = () => {
