@@ -10,14 +10,14 @@
 
   &__logo-link {
     display: inline-block;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
     text-decoration: none;
   }
 
   &__logo {
     display: block;
     width: auto;
-    height: 7rem;
+    height: 5.5rem;
     max-width: 100%;
   }
 
@@ -30,9 +30,9 @@
   }
 
   &__subtitle {
-    margin: 0 0 var(--space-8);
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
+    margin: 0 0 var(--space-6);
+    font-size: var(--text-base);
+    line-height: 1.5;
     color: var(--searn-color-secondary-foreground);
   }
 
@@ -114,16 +114,15 @@
     width: 100%;
     min-height: 2.5rem;
     padding: 0;
-    border: 1px solid var(--searn-color-border);
+    border: 2px solid var(--searn-color-border);
     border-radius: var(--radius);
     background-color: var(--searn-color-page-background);
     transition:
       border-color 0.15s ease,
-      border-width 0.15s ease,
       box-shadow 0.15s ease;
 
     &:focus-within {
-      border: 2px solid var(--searn-color-primary);
+      border-color: var(--searn-color-primary);
       box-shadow: 0 0 0 2px var(--searn-color-focus-ring);
     }
 
@@ -236,7 +235,7 @@
     display: flex;
     align-items: center;
     gap: var(--space-4);
-    margin: var(--space-6) 0;
+    margin: var(--space-4) 0;
   }
 
   &__divider-line {

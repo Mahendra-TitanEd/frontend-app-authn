@@ -259,3 +259,17 @@ body,
 #root {
   min-height: 100vh;
 }
+
+/* Custom auth pages: lock to one viewport — no page scroll */
+html:has(.custom-login),
+body:has(.custom-login) {
+  height: 100%;
+  overflow: hidden;
+}
+
+#root:has(.custom-login) {
+  height: 100dvh;
+  max-height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
