@@ -1,15 +1,20 @@
 .custom-login {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  min-height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
   background-color: var(--searn-color-page-background);
 
   &__grid {
     box-sizing: border-box;
     display: flex;
+    flex: 1 1 auto;
     flex-direction: column;
     width: 100%;
-    min-height: 100vh;
+    min-height: 0;
     align-items: stretch;
   }
 
@@ -21,8 +26,9 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 100vh;
-    padding: var(--space-12) var(--space-8);
+    min-height: 0;
+    padding: var(--space-6) var(--space-8);
+    overflow: hidden;
   }
 
   &__form-inner {
@@ -30,18 +36,18 @@
     width: 100%;
     max-width: 28rem;
     margin: 0 auto;
+    flex-shrink: 1;
+    min-height: 0;
   }
 
   @media (width >= 1024px) {
     &__grid {
       flex-direction: row;
-      min-height: 100vh;
     }
 
     &__form-column {
       flex: 1 1 50%;
-      min-height: 100vh;
-      padding: var(--space-12) var(--space-16);
+      padding: var(--space-8) var(--space-16);
     }
   }
 
@@ -92,16 +98,15 @@
     }
 
     .pgn__form-control-decorator-group {
-      border: 1px solid var(--searn-color-border);
+      border: 2px solid var(--searn-color-border);
       border-radius: var(--radius);
       background-color: var(--searn-color-page-background);
       transition:
         border-color 0.15s ease,
-        border-width 0.15s ease,
         box-shadow 0.15s ease;
 
       &:focus-within {
-        border: 2px solid var(--searn-color-primary) !important;
+        border-color: var(--searn-color-primary) !important;
         box-shadow: 0 0 0 2px var(--searn-color-focus-ring) !important;
       }
 
