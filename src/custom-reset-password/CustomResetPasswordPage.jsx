@@ -216,8 +216,10 @@ const CustomResetPasswordPage = () => {
   if (tokenState === 'pending') {
     return (
       <div className="custom-login custom-reset-password">
-        <div className="custom-login__form-column">
-          <Spinner animation="border" variant="primary" className="custom-reset-password__spinner" />
+        <div className="custom-login__grid">
+          <div className="custom-login__form-column">
+            <Spinner animation="border" variant="primary" className="custom-reset-password__spinner" />
+          </div>
         </div>
       </div>
     );

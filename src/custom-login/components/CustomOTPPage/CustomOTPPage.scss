@@ -10,14 +10,14 @@
 
   &__logo-link {
     display: inline-block;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-6);
     text-decoration: none;
   }
 
   &__logo {
     display: block;
     width: auto;
-    height: 7rem;
+    height: 5.5rem;
     max-width: 100%;
   }
 
@@ -30,9 +30,9 @@
   }
 
   &__subtitle {
-    margin: 0 0 var(--space-8);
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
+    margin: 0 0 var(--space-6);
+    font-size: var(--text-base);
+    line-height: 1.5;
     color: var(--searn-color-secondary-foreground);
   }
 
