@@ -150,6 +150,84 @@ Furthermore, there are several edX-specific environment variables that enable in
 For more information see the document: `Micro-frontend applications in Open
 edX <https://github.com/overhangio/tutor-mfe?tab=readme-ov-file#mfe-development>`__.
 
+Installation
+============
+
+The following Tutor plugin code can be used to install and configure this
+MFE in a Tutor environment.
+
+.. code-block:: python
+
+    from tutormfe.hooks import MFE_APPS
+    from tutor import hooks
+
+    @MFE_APPS.add()
+    def _add_authn_mfe(mfes):
+        mfes["authn"] = {
+            "repository": "https://github.com/Mahendra-TitanEd/frontend-app-authn.git",
+            "port": 1999,
+            "version": "searn/ulmo.2",
+        }
+        return mfes
+
+Configuration
+=============
+
+Create the following plugin at ``~/.local/share/tutor-plugins/authn-custom-plugin.py``:
+
+.. code-block:: python
+
+    from tutor import hooks
+
+    hooks.Filters.ENV_PATCHES.add_item(
+        (
+            "mfe-env-config-runtime-definitions-authn",
+            """
+    // Runtime plugin configuration injected by Tutor (auth / login & registration overrides)
+
+    const { PLUGIN_OPERATIONS, DIRECT_PLUGIN } = await import('@openedx/frontend-plugin-framework');
+    const { default: CustomMainApp }         = await import('./src/CustomMainApp');
+
+    {% raw %}
+    const getPluginSlots = () => {
+      return {
+        authn_main_app_plugin_slot: {
+          plugins: [
+            {
+              op: PLUGIN_OPERATIONS.Insert,
+              widget: {
+                id: 'authn_main_app_plugin_slot',
+                type: DIRECT_PLUGIN,
+                priority: 1,
+                RenderWidget: () => <CustomMainApp />,
+              },
+            },
+          ],
+        },
+      };
+    };
+
+    // Attach plugin slots to runtime config
+    config.pluginSlots = getPluginSlots();
+    {% endraw %}
+    """
+        )
+    )
+
+Then run the following commands to enable the plugin:
+
+.. code-block:: bash
+
+    tutor plugins enable authn-custom-plugin
+    tutor config save
+
+Then build the Tutor MFE using the following commands:
+
+.. code-block:: bash
+
+    tutor images build mfe --no-cache
+    tutor local start -d
+
 How To Contribute
 =================
 
