@@ -1,4 +1,4 @@
-.pilot-terms-checkbox {
+.terms-checkbox {
   margin: 0 !important;
 
   .form-check {
@@ -62,7 +62,7 @@
     font-size: inherit;
     font-weight: 600;
     line-height: inherit;
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
 
     &:hover,
@@ -84,7 +84,15 @@
   }
 }
 
-.pilot-terms-dialog {
+.terms-dialog {
+  @media (width >= 640px) {
+    max-width: min(44rem, calc(100vw - var(--space-8)));
+  }
+
+  @media (width >= 1024px) {
+    max-width: min(56rem, calc(100vw - var(--space-16)));
+  }
+
   .popup-dialog__header {
     margin-bottom: var(--space-3);
   }
@@ -92,5 +100,9 @@
   .popup-dialog__title {
     font-size: var(--text-base);
     line-height: 1.4;
+  }
+
+  .popup-dialog__body p {
+    margin-bottom: var(--space-3);
   }
 }

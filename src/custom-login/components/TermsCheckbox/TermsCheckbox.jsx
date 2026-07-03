@@ -5,10 +5,10 @@ import { Form } from '@openedx/paragon';
 import PropTypes from 'prop-types';
 
 import PopupDialog from '../../../custom-auth/components/PopupDialog/PopupDialog';
-import messages from './PilotTermsCheckbox.messages';
-import './PilotTermsCheckbox.scss';
+import messages from './TermsCheckbox.messages';
+import './TermsCheckbox.scss';
 
-const PilotTermsCheckbox = ({ checked, onChange, error }) => {
+const TermsCheckbox = ({ checked, onChange, error }) => {
   const { formatMessage } = useIntl();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -25,7 +25,7 @@ const PilotTermsCheckbox = ({ checked, onChange, error }) => {
   const termsLink = (
     <button
       type="button"
-      className="pilot-terms-checkbox__link"
+      className="terms-checkbox__link"
       onClick={openDialog}
     >
       {formatMessage(messages.termsLink)}
@@ -35,17 +35,17 @@ const PilotTermsCheckbox = ({ checked, onChange, error }) => {
   return (
     <>
       <Form.Group
-        controlId="custom-login-pilot-terms"
-        className="pilot-terms-checkbox"
+        controlId="custom-login-terms"
+        className="terms-checkbox"
         isInvalid={error !== ''}
       >
         <Form.Checkbox
-          className="pilot-terms-checkbox__input"
+          className="terms-checkbox__input"
           checked={checked}
-          name="pilot_terms_accepted"
+          name="terms_accepted"
           onChange={(event) => onChange(event.target.checked)}
         >
-          <span className="pilot-terms-checkbox__label">
+          <span className="terms-checkbox__label">
             <FormattedMessage
               {...messages.checkboxLabel}
               values={{ termsLink }}
@@ -61,9 +61,9 @@ const PilotTermsCheckbox = ({ checked, onChange, error }) => {
         isOpen={isDialogOpen}
         title={formatMessage(messages.dialogTitle)}
         onClose={closeDialog}
-        contentClassName="pilot-terms-dialog"
+        contentClassName="terms-dialog"
       >
-        <div className="popup-dialog__body pilot-terms-dialog__body">
+        <div className="popup-dialog__body terms-dialog__body">
           <p>{formatMessage(messages.dialogParagraph1)}</p>
           <p>{formatMessage(messages.dialogParagraph2)}</p>
           <p>{formatMessage(messages.dialogParagraph3)}</p>
@@ -85,14 +85,14 @@ const PilotTermsCheckbox = ({ checked, onChange, error }) => {
   );
 };
 
-PilotTermsCheckbox.propTypes = {
+TermsCheckbox.propTypes = {
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   error: PropTypes.string,
 };
 
-PilotTermsCheckbox.defaultProps = {
+TermsCheckbox.defaultProps = {
   error: '',
 };
 
-export default PilotTermsCheckbox;
+export default TermsCheckbox;
