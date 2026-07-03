@@ -18,6 +18,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import messages from './LoginForm.messages';
+import PilotTermsCheckbox from '../PilotTermsCheckbox/PilotTermsCheckbox';
+import pilotTermsMessages from '../PilotTermsCheckbox/PilotTermsCheckbox.messages';
 import { useToast } from '../../../custom-toast';
 import { RESET_PAGE } from '../../../data/constants';
 import { updatePathWithQueryParams } from '../../../data/utils';
@@ -57,6 +59,8 @@ const LoginForm = ({
   const { showToast } = useToast();
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [pilotTermsAccepted, setPilotTermsAccepted] = useState(false);
+  const [pilotTermsError, setPilotTermsError] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
 
   useEffect(() => {
@@ -87,9 +91,13 @@ const LoginForm = ({
     event.preventDefault();
     const eErr = emailApiError || validateLoginFormEmail(email, formatMessage);
     const pErr = passwordApiError || validateLoginFormPassword(password, formatMessage);
+    const termsErr = pilotTermsAccepted
+      ? ''
+      : formatMessage(pilotTermsMessages.requiredError);
     setEmailError(eErr);
     setPasswordError(pErr);
-    if (eErr || pErr) {
+    setPilotTermsError(termsErr);
+    if (eErr || pErr || termsErr) {
       return;
     }
     await onSubmit();
@@ -203,6 +211,15 @@ const LoginForm = ({
               <Form.Control.Feedback type="invalid">{passwordError}</Form.Control.Feedback>
             ) : null}
           </Form.Group>
+
+          <PilotTermsCheckbox
+            checked={pilotTermsAccepted}
+            onChange={(value) => {
+              setPilotTermsAccepted(value);
+              setPilotTermsError('');
+            }}
+            error={pilotTermsError}
+          />
 
           <Button
             className="login-form__submit font-heading gradient-accent"

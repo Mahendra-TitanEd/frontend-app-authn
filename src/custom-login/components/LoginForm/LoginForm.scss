@@ -48,7 +48,7 @@
   &__form {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-3);
   }
 
   &__field {
@@ -232,7 +232,7 @@
   }
 
   &__divider {
-    display: flex;
+    display: none;
     align-items: center;
     gap: var(--space-4);
     margin: var(--space-4) 0;
@@ -253,7 +253,7 @@
   }
 
   &__sso {
-    display: inline-flex !important;
+    display: none !important;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
