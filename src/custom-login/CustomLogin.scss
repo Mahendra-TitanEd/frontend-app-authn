@@ -65,10 +65,10 @@
       color: var(--searn-color-page-foreground) !important;
     }
 
-    input:not(.otp-input__hidden),
+    input:not(.otp-input__hidden):not([type='checkbox']):not([type='radio']),
     textarea,
     select,
-    .form-control {
+    .form-control:not([type='checkbox']):not([type='radio']) {
       color: var(--searn-color-page-foreground) !important;
       -webkit-text-fill-color: var(--searn-color-page-foreground) !important;
       border: 0 !important;
@@ -116,9 +116,9 @@
       }
     }
 
-    input:not(.otp-input__hidden):-webkit-autofill,
-    input:not(.otp-input__hidden):-webkit-autofill:hover,
-    input:not(.otp-input__hidden):-webkit-autofill:focus {
+    input:not(.otp-input__hidden):not([type='checkbox']):not([type='radio']):-webkit-autofill,
+    input:not(.otp-input__hidden):not([type='checkbox']):not([type='radio']):-webkit-autofill:hover,
+    input:not(.otp-input__hidden):not([type='checkbox']):not([type='radio']):-webkit-autofill:focus {
       -webkit-text-fill-color: var(--searn-color-page-foreground) !important;
       box-shadow: 0 0 0 1000px var(--searn-color-page-background) inset !important;
     }
