@@ -8,7 +8,7 @@ const toApiResult = (response) => ({
   data: response?.data ?? response,
 });
 
-export async function startCustomLoginAuth({ identifier, password }) {
+export async function startCustomLoginAuth({ identifier, password, isChecked }) {
   const requestConfig = {
     headers: { 'Content-Type': 'application/json' },
     isPublic: true,
@@ -17,7 +17,7 @@ export async function startCustomLoginAuth({ identifier, password }) {
 
   const response = await getHttpClient().post(
     `${getCustomLoginBaseUrl()}/start/`,
-    { identifier, password },
+    { identifier, password, isChecked },
     requestConfig,
   );
 

@@ -18,8 +18,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import messages from './LoginForm.messages';
-import PilotTermsCheckbox from '../PilotTermsCheckbox/PilotTermsCheckbox';
-import pilotTermsMessages from '../PilotTermsCheckbox/PilotTermsCheckbox.messages';
+import TermsCheckbox from '../TermsCheckbox/TermsCheckbox';
+import termsMessages from '../TermsCheckbox/TermsCheckbox.messages';
 import { useToast } from '../../../custom-toast';
 import { RESET_PAGE } from '../../../data/constants';
 import { updatePathWithQueryParams } from '../../../data/utils';
@@ -59,8 +59,8 @@ const LoginForm = ({
   const { showToast } = useToast();
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [pilotTermsAccepted, setPilotTermsAccepted] = useState(false);
-  const [pilotTermsError, setPilotTermsError] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [termsError, setTermsError] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
 
   useEffect(() => {
@@ -91,16 +91,16 @@ const LoginForm = ({
     event.preventDefault();
     const eErr = emailApiError || validateLoginFormEmail(email, formatMessage);
     const pErr = passwordApiError || validateLoginFormPassword(password, formatMessage);
-    const termsErr = pilotTermsAccepted
+    const termsErr = termsAccepted
       ? ''
-      : formatMessage(pilotTermsMessages.requiredError);
+      : formatMessage(termsMessages.requiredError);
     setEmailError(eErr);
     setPasswordError(pErr);
-    setPilotTermsError(termsErr);
+    setTermsError(termsErr);
     if (eErr || pErr || termsErr) {
       return;
     }
-    await onSubmit();
+    await onSubmit({ isChecked: termsAccepted });
   };
 
   const handleWhoSsoClick = () => {
@@ -212,13 +212,13 @@ const LoginForm = ({
             ) : null}
           </Form.Group>
 
-          <PilotTermsCheckbox
-            checked={pilotTermsAccepted}
+          <TermsCheckbox
+            checked={termsAccepted}
             onChange={(value) => {
-              setPilotTermsAccepted(value);
-              setPilotTermsError('');
+              setTermsAccepted(value);
+              setTermsError('');
             }}
-            error={pilotTermsError}
+            error={termsError}
           />
 
           <Button

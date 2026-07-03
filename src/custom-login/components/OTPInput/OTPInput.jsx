@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 import { useIntl } from '@edx/frontend-platform/i18n';
 import classNames from 'classnames';
@@ -18,6 +18,7 @@ const OTPInput = ({
 }) => {
   const { formatMessage } = useIntl();
   const inputRef = useRef(null);
+  const [isFocused, setIsFocused] = useState(false);
   const activeIndex = Math.min(value.length, OTP_LENGTH - 1);
 
   const handleChange = useCallback((event) => {
@@ -51,7 +52,7 @@ const OTPInput = ({
       <label htmlFor={id} className="otp-input__slots">
         {Array.from({ length: OTP_LENGTH }, (_, index) => {
           const char = value[index] || '';
-          const isActive = !disabled && index === activeIndex && value.length < OTP_LENGTH;
+          const isActive = !disabled && isFocused && index === activeIndex && value.length < OTP_LENGTH;
 
           return (
             <span
@@ -62,7 +63,7 @@ const OTPInput = ({
               })}
               aria-hidden="true"
             >
-              {char}
+              {char || (isActive ? <span className="otp-input__caret" /> : null)}
             </span>
           );
         })}
@@ -79,6 +80,8 @@ const OTPInput = ({
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         onPaste={handlePaste}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
         disabled={disabled}
         aria-label={formatMessage(messages['LOGIN.OTP_INPUT_LABEL'])}
         data-input-otp="true"
