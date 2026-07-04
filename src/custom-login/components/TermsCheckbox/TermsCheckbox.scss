@@ -1,0 +1,108 @@
+.terms-checkbox {
+  margin: 0 !important;
+
+  .form-check {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding-left: 0;
+    margin: 0;
+  }
+
+  &__input {
+    flex-shrink: 0;
+    margin-top: 0.2rem !important;
+    margin-left: 0 !important;
+
+    .form-check-input {
+      box-sizing: border-box;
+      width: 1.125rem;
+      height: 1.125rem;
+      margin: 0;
+      border: 2px solid var(--searn-color-primary) !important;
+      border-radius: 0.25rem !important;
+      background-color: var(--searn-color-page-background) !important;
+      box-shadow: none !important;
+      cursor: pointer;
+      flex-shrink: 0;
+
+      &:checked {
+        background-color: var(--searn-color-primary) !important;
+        border-color: var(--searn-color-primary) !important;
+      }
+
+      &:focus,
+      &:focus-visible {
+        border-color: var(--searn-color-primary) !important;
+        box-shadow: 0 0 0 2px var(--searn-color-focus-ring) !important;
+        outline: none !important;
+      }
+    }
+
+    .form-check-label {
+      padding-left: 0;
+      cursor: pointer;
+    }
+  }
+
+  &__label {
+    display: inline;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: var(--searn-color-secondary-foreground);
+  }
+
+  &__link {
+    display: inline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--searn-color-primary);
+    font-size: inherit;
+    font-weight: 600;
+    line-height: inherit;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--searn-color-primary-hover);
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--searn-color-focus-ring);
+      border-radius: 0.125rem;
+    }
+  }
+
+  .invalid-feedback {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--searn-color-primary) !important;
+  }
+}
+
+.terms-dialog {
+  @media (width >= 640px) {
+    max-width: min(44rem, calc(100vw - var(--space-8)));
+  }
+
+  @media (width >= 1024px) {
+    max-width: min(56rem, calc(100vw - var(--space-16)));
+  }
+
+  .popup-dialog__header {
+    margin-bottom: var(--space-3);
+  }
+
+  .popup-dialog__title {
+    font-size: var(--text-base);
+    line-height: 1.4;
+  }
+
+  .popup-dialog__body p {
+    margin-bottom: var(--space-3);
+  }
+}

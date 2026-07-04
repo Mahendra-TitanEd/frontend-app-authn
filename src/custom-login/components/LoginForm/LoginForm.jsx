@@ -18,6 +18,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import messages from './LoginForm.messages';
+import TermsCheckbox from '../TermsCheckbox/TermsCheckbox';
+import termsMessages from '../TermsCheckbox/TermsCheckbox.messages';
 import { useToast } from '../../../custom-toast';
 import { RESET_PAGE } from '../../../data/constants';
 import { updatePathWithQueryParams } from '../../../data/utils';
@@ -57,6 +59,8 @@ const LoginForm = ({
   const { showToast } = useToast();
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [termsError, setTermsError] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
 
   useEffect(() => {
@@ -87,12 +91,16 @@ const LoginForm = ({
     event.preventDefault();
     const eErr = emailApiError || validateLoginFormEmail(email, formatMessage);
     const pErr = passwordApiError || validateLoginFormPassword(password, formatMessage);
+    const termsErr = termsAccepted
+      ? ''
+      : formatMessage(termsMessages.requiredError);
     setEmailError(eErr);
     setPasswordError(pErr);
-    if (eErr || pErr) {
+    setTermsError(termsErr);
+    if (eErr || pErr || termsErr) {
       return;
     }
-    await onSubmit();
+    await onSubmit({ isChecked: termsAccepted });
   };
 
   const handleWhoSsoClick = () => {
@@ -203,6 +211,15 @@ const LoginForm = ({
               <Form.Control.Feedback type="invalid">{passwordError}</Form.Control.Feedback>
             ) : null}
           </Form.Group>
+
+          <TermsCheckbox
+            checked={termsAccepted}
+            onChange={(value) => {
+              setTermsAccepted(value);
+              setTermsError('');
+            }}
+            error={termsError}
+          />
 
           <Button
             className="login-form__submit font-heading gradient-accent"

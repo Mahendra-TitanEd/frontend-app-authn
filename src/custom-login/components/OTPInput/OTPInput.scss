@@ -49,13 +49,33 @@
     }
 
     &--active {
-      border-color: var(--searn-color-primary);
-      box-shadow: 0 0 0 2px var(--searn-color-focus-ring);
+      border: 2px solid var(--searn-color-primary);
+      box-shadow: none;
       z-index: 2;
     }
 
     &--filled {
       font-weight: 500;
+    }
+  }
+
+  &__caret {
+    display: block;
+    width: 2px;
+    height: 1.25rem;
+    border-radius: 1px;
+    background-color: var(--searn-color-muted);
+    animation: otp-input-caret-blink 1s step-end infinite;
+  }
+
+  @keyframes otp-input-caret-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
     }
   }
 

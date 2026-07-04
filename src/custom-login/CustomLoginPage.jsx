@@ -42,6 +42,7 @@ const CustomLoginPage = (props) => {
   const [otpPending, setOtpPending] = useState(false);
   const [resendPending, setResendPending] = useState(false);
   const [resendCountdown, setResendCountdown] = useState(0);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const [pipelineFinishAuthUrl, setPipelineFinishAuthUrl] = useState(null);
   const [loginRedirect, setLoginRedirect] = useState({
     success: false,
@@ -141,13 +142,14 @@ const CustomLoginPage = (props) => {
     return false;
   }, []);
 
-  const startOtpChallenge = useCallback(async ({ loadingSetter, resetOtpOnFailure }) => {
+  const startOtpChallenge = useCallback(async ({ loadingSetter, resetOtpOnFailure, isChecked }) => {
     loadingSetter(true);
     clearFieldApiErrors();
     try {
       const { status, data } = await startCustomLoginAuth({
         identifier: email.trim(),
         password,
+        isChecked: Boolean(isChecked),
       });
       const {
         body: responseData,
@@ -220,9 +222,14 @@ const CustomLoginPage = (props) => {
     setFieldErrorFromApi,
   ]);
 
-  const handleCredentialSubmit = useCallback(async () => {
+  const handleCredentialSubmit = useCallback(async ({ isChecked }) => {
+    setTermsAccepted(isChecked);
     clearFieldApiErrors();
-    await startOtpChallenge({ loadingSetter: setLoginPending, resetOtpOnFailure: true });
+    await startOtpChallenge({
+      loadingSetter: setLoginPending,
+      resetOtpOnFailure: true,
+      isChecked,
+    });
   }, [clearFieldApiErrors, startOtpChallenge]);
 
   const handleOtpVerified = useCallback(async (otpValue) => {
@@ -298,8 +305,12 @@ const CustomLoginPage = (props) => {
 
   const handleResendOtp = useCallback(async () => {
     setOtpApiError('');
-    await startOtpChallenge({ loadingSetter: setResendPending, resetOtpOnFailure: false });
-  }, [startOtpChallenge]);
+    await startOtpChallenge({
+      loadingSetter: setResendPending,
+      resetOtpOnFailure: false,
+      isChecked: termsAccepted,
+    });
+  }, [termsAccepted, startOtpChallenge]);
 
   const handleBackToLogin = useCallback(() => {
     setShowOtp(false);

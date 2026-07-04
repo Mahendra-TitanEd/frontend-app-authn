@@ -17,7 +17,7 @@
   &__logo {
     display: block;
     width: auto;
-    height: 5.5rem;
+    height: 112px;
     max-width: 100%;
   }
 
@@ -48,7 +48,7 @@
   &__form {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-3);
   }
 
   &__field {
@@ -65,7 +65,15 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
-    margin-bottom: var(--space-2);
+    margin-bottom: 8px;
+
+    .login-form__label {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &__field > &__label {
+    margin: 0 0 8px !important;
   }
 
   &__label {
@@ -232,7 +240,7 @@
   }
 
   &__divider {
-    display: flex;
+    display: none;
     align-items: center;
     gap: var(--space-4);
     margin: var(--space-4) 0;
@@ -253,7 +261,7 @@
   }
 
   &__sso {
-    display: inline-flex !important;
+    display: none !important;
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
