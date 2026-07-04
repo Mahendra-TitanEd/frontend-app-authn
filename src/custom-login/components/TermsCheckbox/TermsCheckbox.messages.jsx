@@ -23,12 +23,12 @@ export default defineMessages({
   },
   dialogParagraph1: {
     id: 'LOGIN.TERMS_DIALOG_P1',
-    defaultMessage: 'This platform is being provided for the SEARN NRA Learning Space pilot. It is intended only for pilot testing, workflow validation, and feedback collection by nominated users from participating NRAs.',
+    defaultMessage: 'This platform is being provided for the SEARN NRA LMS pilot. It is intended only for pilot testing, workflow validation, and feedback collection by nominated users from participating NRAs.',
     description: 'Custom login — terms popup paragraph 1',
   },
   dialogParagraph2: {
     id: 'LOGIN.TERMS_DIALOG_P2',
-    defaultMessage: 'This is not a live production system. The pilot environment is hosted by TitanEd for the purpose of the pilot and is deployed on their secure cloud infrastructure (AWS). Access to the platform and its underlying systems is restricted to authorised pilot users and designated TitanEd technical personnel for support and maintenance purposes. Final rollout into a live production environment will follow a separate WHO-managed hosting and implementation process.',
+    defaultMessage: 'This is not a live production system. The pilot environment is hosted by TitanEd for the purpose of the pilot and is deployed on their secure cloud infrastructure (AWS). Access to the platform and its underlying systems is restricted to authorized pilot users and designated TitanEd technical personnel for support and maintenance purposes. Final rollout into a live production environment will follow a separate WHO-managed hosting and implementation process.',
     description: 'Custom login — terms popup paragraph 2',
   },
   dialogParagraph3: {
