@@ -3,7 +3,7 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 export default defineMessages({
   checkboxLabel: {
     id: 'LOGIN.TERMS_CHECKBOX',
-    defaultMessage: 'I confirm that I am an authorised pilot participant and agree to use the SEARN NRA Learning Space only for pilot testing, workflow validation, and feedback, in accordance with the {termsLink}.',
+    defaultMessage: 'I confirm that I am an authorised pilot participant and agree to use the SEARN NRA LMS only for pilot testing, workflow validation, and feedback, in accordance with the {termsLink}.',
     description: 'Custom login — terms participation confirmation checkbox label',
   },
   termsLink: {
